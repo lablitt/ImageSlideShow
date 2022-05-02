@@ -1,3 +1,5 @@
+import React, { useRef, useState, useEffect } from "react";
+import CanvasDraw from "react-canvas-draw";
 
 const style = {
   container: {
@@ -33,14 +35,28 @@ const style = {
 
 const Slide = (props) => {
 
+  const sigCanvas = useRef({});
+  //want to save and clear
+
+  console.log("elloo" + props.slide.imageFile);
+
+  useEffect(() => {
+       let saveDataString = sigCanvas.current.getSaveData();
+       props.saveSlide(saveDataString);
+       sigCanvas.current.clear();
+       props.slide.canvasDataString && sigCanvas.current.loadSaveData(props.slide.canvasDataString, true);
+   },[props.currentSlideIndex])
+
   return (
     <div>
-      {
-        //could make this cleaner
-        props.slide.imageFile != "dd" ?
-          <img src={props.slide.imageFile}></img> :
-          <div>no image present</div>
-      }
+      <div>
+        {
+          //could make this cleaner
+          props.slide.imageFile != "dd" ?
+            <CanvasDraw ref={sigCanvas} imgSrc={props.slide.imageFile}/> :
+            <CanvasDraw ref={sigCanvas} imgSrc={"https://dummyimage.com/600x400/ffffff/fff"}/>
+        }
+      </div>
     </div>
   )
 }

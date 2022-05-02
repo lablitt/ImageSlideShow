@@ -36,7 +36,7 @@ const EditorWindow = (props) => {
 
   return (
     <div style={style.thumbs} {...props.getRootProps({className: 'dropzone', onClick: event => event.stopPropagation()})}>
-      <Slide slide={props.slide}/>
+      <Slide slide={props.slide} currentSlideIndex={props.currentSlideIndex} saveSlide={props.saveSlide}/>
     </div>
   )
 }

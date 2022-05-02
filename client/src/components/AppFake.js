@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import ReactDOM from "react-dom";
 import {useDropzone} from 'react-dropzone';
 import PreviewBar from './PreviewBar';
 import EditorWindow from './EditorWindow';
@@ -51,7 +52,6 @@ const AppFake = () => {
       let currentSlide = {...slides[currentSlideIndex]};
       acceptedFiles.map(file => currentSlide.imageFile = URL.createObjectURL(file))
       const newSlides = [...slides];
-      console.log(slides)
       newSlides[currentSlideIndex] = currentSlide;
       setSlides(newSlides);
     }
@@ -61,6 +61,22 @@ const AppFake = () => {
     setCurrentSlideIndex(e.target.value);
   }
 
+  //send function as prop
+
+  //ITS SAVING ON THE WRONG SLIDE
+  //WE NEED THE PREV SLIDE
+  const prevSlideIndex = usePrevious(currentSlideIndex);
+
+  const saveSlide = (saveDataString) => {
+    console.log("hello    " + prevSlideIndex)
+    let prevSlide = {...slides[prevSlideIndex]};
+    prevSlide.canvasDataString = saveDataString;
+    const newSlides = [...slides];
+    newSlides[prevSlideIndex] = prevSlide;
+    console.log(newSlides)
+    setSlides(newSlides);
+  }
+
   const handleClick = () => {
     setSlides(prev => [...prev, emptySlide]);
   }
@@ -68,9 +84,21 @@ const AppFake = () => {
   return (
     <div style={style.mainContainer}>
       <PreviewBar slides={slides} handleClick={handleClick} handleSelectSlide={handleSelectSlide}/>
-      <EditorWindow slide={slides[currentSlideIndex]} getRootProps={getRootProps}/>
+      <EditorWindow slide={slides[currentSlideIndex]} getRootProps={getRootProps} currentSlideIndex={currentSlideIndex} saveSlide={saveSlide}/>
     </div>
   )
+}
+
+function usePrevious(value) {
+  // The ref object is a generic container whose current property is mutable ...
+  // ... and can hold any value, similar to an instance property on a class
+  const ref = useRef();
+  // Store current value in ref
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+  // Return previous value (happens before update in useEffect above)
+  return ref.current;
 }
 
 export default AppFake;
