@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react';
-import ReactDOM from "react-dom";
+
 import {useDropzone} from 'react-dropzone';
+
 import PreviewBar from './PreviewBar';
+import Slideshow from './Slideshow';
 import EditorWindow from './EditorWindow';
 
 const style = {
@@ -32,20 +34,33 @@ const style = {
   },
   mainContainer: {
     display: 'flex'
-  }
+  },
+  fullscreen : {
+    visibility: 'collapse',
+    position: 'fixed',
+  },
+  fullscreenOpen : {
+    visibility: 'visible',
+    position: 'fixed',
+    minWidth: '100%',
+    height: '100%',
+    top: '0',
+    left: '0'
+  },
 }
 //will render slides
 // will render add slide button
 //starts with one blank slide
 
-const emptySlide = {imageFile: "dd"};
+const emptySlide = {imageFile: "https://dummyimage.com/600x400/ffffff/fff"};
 
 const AppFake = () => {
 
   const [slides, setSlides] = useState([emptySlide]);
+  const [openCarousel, setOpenCarousel] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 //check this lives here
-  const {getRootProps, getInputProps} = useDropzone({
+  const {getRootProps} = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
       //NEED TO LIMIT TO ONE FILE
@@ -81,14 +96,60 @@ const AppFake = () => {
     setSlides(prev => [...prev, emptySlide]);
   }
 
+
+  const openSlideShow = () => {
+    //has an array
+    //call slideshow function
+    setOpenCarousel(true);
+
+  }
+
+  // const showSlides = () => {
+  //
+  // }
+
+
+//WHERE WOULD YOU STORE THIS FUNCTIONALITY????
+//first thing tomorrow
+  const myFunction = () => {
+  // your logic here
+  console.log('pressed Esc ✅');
+  setOpenCarousel(false);
+};
+
+useEffect(() => {
+  const keyDownHandler = event => {
+    console.log('User pressed: ', event.key);
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+
+      // 👇️ your logic here
+      myFunction();
+    }
+  };
+
+  document.addEventListener('keydown', keyDownHandler);
+
+  // 👇️ clean up event listener
+  return () => {
+    document.removeEventListener('keydown', keyDownHandler);
+  };
+}, []);
+
   return (
     <div style={style.mainContainer}>
       <PreviewBar slides={slides} handleClick={handleClick} handleSelectSlide={handleSelectSlide}/>
-      <EditorWindow slide={slides[currentSlideIndex]} getRootProps={getRootProps} currentSlideIndex={currentSlideIndex} saveSlide={saveSlide}/>
+      <EditorWindow slide={slides[currentSlideIndex]} getRootProps={getRootProps} currentSlideIndex={currentSlideIndex} saveSlide={saveSlide} openSlideShow={openSlideShow}/>
+
+      <div id="fullscreen" style={openCarousel ? style.fullscreenOpen : style.fullscreen}>
+        <Slideshow colors={slides}/>
+      </div>
     </div>
   )
 }
 
+//move to other file
 function usePrevious(value) {
   // The ref object is a generic container whose current property is mutable ...
   // ... and can hold any value, similar to an instance property on a class
