@@ -19,7 +19,9 @@ const Slide = (props) => {
     <div>
       <div>
         {
-          <CanvasDraw ref={sigCanvas} saveData={props.slide.canvasDataString} className={props.className} hideInterface={props.hideInterface} imgSrc={props.slide.imageFile}/>
+          props.forSlideshow ?
+          <CanvasDraw ref={sigCanvas} saveData={props.slide.canvasDataString} className={props.className} hideInterface={props.hideInterface} imgSrc={props.slide.imageFile}/> :
+          <CanvasDraw ref={sigCanvas} className={props.className} hideInterface={props.hideInterface} imgSrc={props.slide.imageFile}/>
         }
       </div>
     </div>

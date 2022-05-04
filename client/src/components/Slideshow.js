@@ -44,7 +44,7 @@ function Slideshow(props) {
       >
         {props.colors.map((item, index) => (
 
-          <Slide key={index} slide={item} className={"slide"} hideInterface={true}/>
+          <Slide key={index} slide={item} className={"slide"} hideInterface={true} forSlideshow={true}/>
         ))}
       </div>
 
