@@ -39,7 +39,7 @@ const EditorWindow = (props) => {
   return (
     <>
     <div style={style.thumbs} {...props.getRootProps({className: 'dropzone', onClick: event => event.stopPropagation()})}>
-      <Slide slide={props.slide} currentSlideIndex={props.currentSlideIndex} saveSlide={props.saveSlide}/>
+      <Slide slide={props.slide} currentSlideIndex={props.currentSlideIndex} openSlideShow={props.openSlideShow} saveSlide={props.saveSlide} openCarousel={props.openCarousel}/>
     </div>
     <button onClick={props.openSlideShow}>PLAY</button>
     </>

@@ -8,8 +8,7 @@ const delay = 3000;
 function Slideshow(props) {
 
 //why does the array start with an undefined element? will have to click on first slide for testing
-  console.log("im in slideshow")
-  console.log(props.colors)
+
 
   const [index, setIndex] = React.useState(0);
   const timeoutRef = React.useRef(null);

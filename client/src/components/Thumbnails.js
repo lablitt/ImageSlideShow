@@ -32,9 +32,6 @@ const style = {
 
 
 const Thumbnails = (props) => {
-  console.log("in Thumbnails")
-  console.log(props.slides);
-
   const slides = props.slides.map((obj, i) => {
     return <button
       key={i.toString()}

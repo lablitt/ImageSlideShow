@@ -10,12 +10,9 @@ const Slide = (props) => {
 
   useEffect(() => {
        let saveDataString = sigCanvas.current.getSaveData();
-
-       console.log(sigCanvas.current)
-
        const width = sigCanvas.current.props.canvasWidth;
            const height = sigCanvas.current.props.canvasHeight;
-           const background = sigCanvas.current.canvasContainer.children[0]; 
+           const background = sigCanvas.current.canvasContainer.children[0];
            const drawing = sigCanvas.current.canvasContainer.children[1];
            const canvas = document.createElement('canvas');
            canvas.width = width;
@@ -31,7 +28,7 @@ const Slide = (props) => {
        props.saveSlide && props.saveSlide(saveDataString, dataURL);
        sigCanvas.current.clear();
        props.slide.canvasDataString && sigCanvas.current.loadSaveData(props.slide.canvasDataString, true);
-   },[props.currentSlideIndex])
+   },[props.currentSlideIndex, props.openCarousel])
 
   return (
     <div>

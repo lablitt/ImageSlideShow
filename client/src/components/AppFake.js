@@ -48,9 +48,7 @@ const style = {
     left: '0'
   },
 }
-//will render slides
-// will render add slide button
-//starts with one blank slide
+
 
 const emptySlide = {imageFile: "https://dummyimage.com/600x400/ffffff/fff"};
 
@@ -64,6 +62,7 @@ const AppFake = () => {
     accept: 'image/*',
     onDrop: acceptedFiles => {
       //NEED TO LIMIT TO ONE FILE
+      console.log("in useDropzone")
       let currentSlide = {...slides[currentSlideIndex]};
       acceptedFiles.map(file => currentSlide.imageFile = URL.createObjectURL(file))
       const newSlides = [...slides];
@@ -76,20 +75,16 @@ const AppFake = () => {
     setCurrentSlideIndex(e.target.value);
   }
 
-  //send function as prop
-
-  //ITS SAVING ON THE WRONG SLIDE
-  //WE NEED THE PREV SLIDE
   const prevSlideIndex = usePrevious(currentSlideIndex);
 
   const saveSlide = (saveDataString, dataURL) => {
-    console.log("hello    " + prevSlideIndex)
+    console.log("in prevSlideIndex   ", prevSlideIndex)
+
     let prevSlide = {...slides[prevSlideIndex]};
     prevSlide.canvasDataString = saveDataString;
     prevSlide.dataURL = dataURL;
     const newSlides = [...slides];
     newSlides[prevSlideIndex] = prevSlide;
-    console.log(newSlides)
     setSlides(newSlides);
   }
 
@@ -99,28 +94,19 @@ const AppFake = () => {
 
 
   const openSlideShow = () => {
-    //has an array
-    //call slideshow function
+    //save slide
     setOpenCarousel(true);
-
   }
-
-  // const showSlides = () => {
-  //
-  // }
-
 
 //WHERE WOULD YOU STORE THIS FUNCTIONALITY????
 //first thing tomorrow
   const myFunction = () => {
   // your logic here
-  console.log('pressed Esc ✅');
   setOpenCarousel(false);
 };
 
 useEffect(() => {
   const keyDownHandler = event => {
-    console.log('User pressed: ', event.key);
 
     if (event.key === 'Escape') {
       event.preventDefault();
@@ -141,7 +127,7 @@ useEffect(() => {
   return (
     <div style={style.mainContainer}>
       <PreviewBar slides={slides} handleClick={handleClick} handleSelectSlide={handleSelectSlide}/>
-      <EditorWindow slide={slides[currentSlideIndex]} getRootProps={getRootProps} currentSlideIndex={currentSlideIndex} saveSlide={saveSlide} openSlideShow={openSlideShow}/>
+      <EditorWindow slide={slides[currentSlideIndex]} getRootProps={getRootProps} currentSlideIndex={currentSlideIndex} saveSlide={saveSlide} openSlideShow={openSlideShow} openCarousel={openCarousel}/>
 
       <div id="fullscreen" style={openCarousel ? style.fullscreenOpen : style.fullscreen}>
         <Slideshow colors={slides}/>
@@ -164,3 +150,14 @@ function usePrevious(value) {
 }
 
 export default AppFake;
+
+
+//still left to do
+// get rid of unfefined in the array
+// click the play button also saves array
+//console errors
+
+//add styles
+//general cleanup
+//sort styles - maybe stylise components
+//sort reduce method
