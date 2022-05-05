@@ -43,8 +43,9 @@ function Slideshow(props) {
         style={{ transform: `translate3d(${-index * 100}vw, 0, 0)` }}
       >
         {props.colors.map((item, index) => (
-
-          <Slide key={index} slide={item} className={"slide"} hideInterface={true} forSlideshow={true}/>
+          <div key={index} >
+            <img slide={item} className={"slide h"} src={item.dataURL}/>
+          </div>
         ))}
       </div>
 

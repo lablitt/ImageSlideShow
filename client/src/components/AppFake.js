@@ -82,10 +82,11 @@ const AppFake = () => {
   //WE NEED THE PREV SLIDE
   const prevSlideIndex = usePrevious(currentSlideIndex);
 
-  const saveSlide = (saveDataString) => {
+  const saveSlide = (saveDataString, dataURL) => {
     console.log("hello    " + prevSlideIndex)
     let prevSlide = {...slides[prevSlideIndex]};
     prevSlide.canvasDataString = saveDataString;
+    prevSlide.dataURL = dataURL;
     const newSlides = [...slides];
     newSlides[prevSlideIndex] = prevSlide;
     console.log(newSlides)
