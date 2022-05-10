@@ -1,14 +1,11 @@
 
 const style = {
-  container: {
-    border: '1px solid gray',
-    height: '700px',
-    width: '300px'
-  },
+//here for slide
   slide: {
     border: '1px solid red',
-    height: '20px',
-    width: '300px',
+    margin: '10px',
+    height: '100px',
+    width: '-webkit-fill-available',
     cursor: 'pointer'
   },
   button: {
@@ -33,13 +30,12 @@ const style = {
 
 const Thumbnails = (props) => {
   const slides = props.slides.map((obj, i) => {
-    return <button
+    return <img
       key={i.toString()}
       style = {style.slide}
       value={i}
-      onClick={props.handleSelectSlide}>
-      {obj.imageFile}
-    </button>
+      src={obj.dataURL}
+      onClick={props.handleSelectSlide}/>
   });
 
   return (

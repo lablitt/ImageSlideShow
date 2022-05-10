@@ -64,5 +64,3 @@ function Slideshow(props) {
 }
 
 export default Slideshow;
-
-// ReactDOM.render(<Slideshow />, document.getElementById("App"));

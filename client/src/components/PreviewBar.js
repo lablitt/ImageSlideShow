@@ -1,26 +1,19 @@
 import Thumbnails from './Thumbnails';
 
 const style = {
+  //here is container
   container: {
+    flexBasis: '35%',
+    maxWidth: '300px',
     border: '1px solid gray',
-    height: '700px',
-    width: '300px'
+    height: '100%',
+    width: '100%'
   },
-  slide: {
-    border: '1px solid red',
-    height: '20px',
-    width: '300px',
-    cursor: 'pointer'
-  },
+
   button: {
     border: '1px solid purple',
     height: '20px',
     width: '300px'
-  },
-  thumbs: {
-    height: '500px',
-    width: '300px',
-    background: 'green'
   },
   image: {
     height: '200px',
@@ -28,7 +21,10 @@ const style = {
   },
   mainContainer: {
     display: 'flex'
-  }
+  },
+  button: {
+    marginLeft: '10px'
+  },
 }
 
 const PreviewBar = (props) => {
@@ -36,7 +32,7 @@ const PreviewBar = (props) => {
   return (
     <div style = {style.container}>
       <Thumbnails slides={props.slides} handleSelectSlide={props.handleSelectSlide}/>
-      <button onClick={props.handleClick} >add slide</button>
+      <button style = {style.button} onClick={props.handleClick} >add slide</button>
     </div>
   );
 }

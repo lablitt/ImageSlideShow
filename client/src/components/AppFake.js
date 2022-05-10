@@ -7,15 +7,11 @@ import Slideshow from './Slideshow';
 import EditorWindow from './EditorWindow';
 
 const style = {
-  container: {
-    border: '1px solid gray',
-    height: '700px',
-    width: '300px'
-  },
+
   slide: {
     border: '1px solid red',
     height: '20px',
-    width: '300px',
+    width: '100%',
     cursor: 'pointer'
   },
   button: {
@@ -25,15 +21,19 @@ const style = {
   },
   thumbs: {
     height: '500px',
-    width: '300px',
+    width: '100%',
     background: 'green'
   },
   image: {
     height: '200px',
     width: '200px',
   },
+  //here is mainContainer
   mainContainer: {
-    display: 'flex'
+    display: 'flex',
+    maxWidth: '1000px',
+    minHeight: '700px',
+    height: '100vh'
   },
   fullscreen : {
     visibility: 'collapse',
@@ -72,7 +72,7 @@ const AppFake = () => {
   });
 
   const handleSelectSlide = (e) => {
-    setCurrentSlideIndex(e.target.value);
+    setCurrentSlideIndex(e.target.getAttribute("value"));
   }
 
   const prevSlideIndex = usePrevious(currentSlideIndex);
@@ -153,11 +153,16 @@ export default AppFake;
 
 
 //still left to do
-// get rid of unfefined in the array
-// click the play button also saves array
-//console errors
+//make slide, display slide image or just number
+//i can now just do display none on the slide show since they are images not canvas
 
 //add styles
 //general cleanup
 //sort styles - maybe stylise components
 //sort reduce method
+
+//how to improve
+//we are getting a fixed width/height on canvas, we need get the live ones, thus canvas isn't responsive
+//fix mime type errors in dropzone
+//make mobile friendly
+//only upload single files

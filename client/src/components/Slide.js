@@ -1,6 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import CanvasDraw from "react-canvas-draw";
 
+const style = {
+  canvasDraw: {
+    width: '100%',
+    height: '100%'
+  }
+}
+
 const Slide = (props) => {
 
   const sigCanvas = useRef({});
@@ -10,6 +17,7 @@ const Slide = (props) => {
 
   useEffect(() => {
        let saveDataString = sigCanvas.current.getSaveData();
+       //TO DO: we are getting a fixed width/height, we need get the live ones
        const width = sigCanvas.current.props.canvasWidth;
            const height = sigCanvas.current.props.canvasHeight;
            const background = sigCanvas.current.canvasContainer.children[0];
@@ -31,11 +39,11 @@ const Slide = (props) => {
    },[props.currentSlideIndex, props.openCarousel])
 
   return (
-    <div>
-      <div>
-      <CanvasDraw ref={sigCanvas} className={props.className} hideInterface={props.hideInterface} imgSrc={props.slide.imageFile}/>
-      </div>
-    </div>
+
+
+      <CanvasDraw ref={sigCanvas} style={style.canvasDraw} hideInterface={props.hideInterface} imgSrc={props.slide.imageFile}/>
+
+
   )
 }
 
